@@ -1,0 +1,32 @@
+etapa,campo,descricao,tipo,exemplo
+Recebimento,id_carga,Identificador único da carga (romaneio),texto,R123456
+Recebimento,unidade,Unidade de recebimento,texto,Unidade de Missal
+Recebimento,data_hora_chegada,Chegada do caminhão na portaria,data e hora,2026-02-15 07:42
+Recebimento,data_hora_entrada_balanca,Primeira pesagem,data e hora,2026-02-15 08:10
+Recebimento,data_hora_saida,Segunda pesagem e saída,data e hora,2026-02-15 08:55
+Recebimento,produtor_id,"Cooperado, anonimizado",texto,P0457
+Recebimento,placa,"Placa do veículo, anonimizada se necessário",texto,VEIC0091
+Recebimento,nota_fiscal,Número da nota de produtor,texto,NF001234
+Recebimento,produto,Produto e safra,texto,Soja 2025/26
+Recebimento,peso_bruto_kg,Peso bruto,número,45320
+Recebimento,tara_kg,Tara,número,15100
+Classificação,umidade_pct,Umidade na entrada,número,16.8
+Classificação,impurezas_pct,Matérias estranhas e impurezas,número,1.4
+Classificação,avariados_pct,Avariados total,número,3.2
+Classificação,esverdeados_pct,Esverdeados,número,0.5
+Classificação,partidos_quebrados_pct,"Partidos, quebrados e amassados",número,9.0
+Classificação,desconto_umidade_kg,Desconto aplicado por umidade,número,1060
+Classificação,desconto_impureza_kg,Desconto aplicado por impureza,número,120
+Classificação,peso_liquido_kg,Peso líquido creditado,número,29040
+Classificação,classificador,"Responsável, anonimizado",texto,C07
+Secagem,secador,Secador utilizado,texto,Secador 2
+Secagem,inicio_secagem,Início da secagem do lote,data e hora,2026-02-15 09:30
+Secagem,fim_secagem,Fim da secagem do lote,data e hora,2026-02-15 13:10
+Secagem,umidade_saida_pct,Umidade na saída do secador,número,13.5
+Secagem,temperatura_ar_c,Temperatura do ar de secagem,número,95
+Secagem,lenha_m3,Consumo de lenha ou energia,número,4.2
+Armazenagem,silo,Silo ou armazém de destino,texto,Silo 3
+Armazenagem,capacidade_silo_t,Capacidade do silo,número,6000
+Armazenagem,saldo_silo_t,Saldo após a entrada,número,4310
+Expedição,data_expedicao,Saída para indústria ou porto,data,2026-03-02
+Expedição,destino,Destino da carga,texto,Indústria de esmagamento
