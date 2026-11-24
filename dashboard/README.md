@@ -12,7 +12,15 @@ streamlit run app.py
 
 Abre em http://localhost:8501. O banco SQLite (`data/recebimento.db`) é criado na primeira execução.
 
-Totem: abrir `http://localhost:8501/?modo=totem` em tela cheia (Chrome com `--kiosk`). Mostra só o agendamento e o registro de chegada, com letra maior.
+## Totem
+
+Abrir `http://localhost:8501/?modo=totem&unidade=U20` em tela cheia (Chrome com `--kiosk`), trocando `U20` pela unidade onde o totem fica.
+
+1. Tela inicial com dois botões grandes: "Tenho agendamento" (registra a chegada pelo código ou pela placa) e "Não tenho agendamento" (agenda no local).
+2. Dia e horário escolhidos por toque; botões e campos com pelo menos 64 px de altura.
+3. Depois de concluir, a tela volta sozinha ao início em 20 segundos, para o próximo motorista.
+4. Sem `unidade` na URL, o totem pede a unidade uma vez.
+5. Registros do totem saem marcados como teste. Para uso real, acrescentar `&teste=0` à URL.
 
 ## Telas
 
@@ -33,4 +41,6 @@ Registros feitos em demonstração ficam marcados como teste e não entram nos r
 
 1. `app.py`: navegação e modo totem
 2. `db.py`: banco, cálculo da demanda e regras de agendamento
-3. `telas/`: uma página por tela
+3. `ui.py`: aparência (tema inspirado no Fluent 2 da Microsoft, gráficos e modo totem)
+4. `telas/`: uma página por tela
+5. `.streamlit/config.toml`: cores, fonte e cantos do tema

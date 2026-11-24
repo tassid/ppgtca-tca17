@@ -6,8 +6,9 @@ Totem:  abrir http://localhost:8501/?modo=totem em modo quiosque.
 import streamlit as st
 
 import db
+import ui
 
-st.set_page_config(page_title="Descargas de grãos", page_icon="🚚", layout="wide")
+st.set_page_config(page_title="Descargas de grãos", page_icon="assets/icone.svg", layout="wide")
 
 
 @st.cache_resource
@@ -16,21 +17,21 @@ def conexao():
 
 
 st.session_state["con"] = conexao()
+ui.estilo()
+st.logo("assets/logo.svg", size="large")
 totem = st.query_params.get("modo") == "totem"
 st.session_state["totem"] = totem
 
 if totem:
-    st.markdown(
-        "<style>[data-testid='stSidebar'],[data-testid='stSidebarCollapsedControl']{display:none}"
-        " html{font-size:20px}</style>",
-        unsafe_allow_html=True,
-    )
+    ui.estilo_totem()
     paginas = [st.Page("telas/agendamento.py", title="Agendamento")]
 else:
-    paginas = [
-        st.Page("telas/planejamento.py", title="Planejamento", default=True),
-        st.Page("telas/agendamento.py", title="Agendamento"),
-        st.Page("telas/monitoramento.py", title="Monitoramento"),
-    ]
+    paginas = {
+        "Planejamento": [st.Page("telas/planejamento.py", title="Demanda e grade de horários", default=True)],
+        "Operação": [
+            st.Page("telas/agendamento.py", title="Agendamento"),
+            st.Page("telas/monitoramento.py", title="Monitoramento da portaria"),
+        ],
+    }
 
 st.navigation(paginas, position="hidden" if totem else "sidebar").run()

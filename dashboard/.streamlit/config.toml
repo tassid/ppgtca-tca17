@@ -1,5 +1,30 @@
 [client]
 toolbarMode = "viewer"
 
+# Paleta e tipografia inspiradas no Fluent 2 (Microsoft)
 [theme]
-primaryColor = "#2E7D32"
+base = "light"
+font = "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif"
+headingFont = "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif"
+headingFontSizes = ["1.6rem", "1.1rem", "1rem", "0.95rem", "0.9rem", "0.85rem"]
+headingFontWeights = [600, 600, 600, 600, 600, 600]
+baseFontSize = 14
+primaryColor = "#0F6CBD"
+backgroundColor = "#F5F5F5"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#242424"
+borderColor = "#E0E0E0"
+showWidgetBorder = true
+baseRadius = "4px"
+buttonRadius = "4px"
+metricValueFontSize = "1.75rem"
+metricValueFontWeight = 600
+dataframeHeaderBackgroundColor = "#FAFAFA"
+chartCategoricalColors = ["#0F6CBD", "#62ABF5", "#B4D6FA", "#E37D00", "#616161"]
+showSidebarBorder = true
+
+[theme.sidebar]
+backgroundColor = "#FAFAFA"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#242424"
+borderColor = "#E0E0E0"
