@@ -38,7 +38,7 @@ muns = c2.multiselect("Municípios", d["municipio"].tolist(), default=d["municip
 d = d[d["municipio"].isin(muns)]
 
 if participacao == 100:
-    st.info("Participação em 100%: os números são o teto do município, não o recebimento da unidade.")
+    st.info("Com participação de 100%, os números são o teto do município, não o recebimento da unidade.")
 
 # ---------- indicadores ----------
 k1, k2, k3, k4 = st.columns(4)
@@ -62,7 +62,7 @@ g1.plotly_chart(fig, width="stretch")
 prod = db.ler(con, "SELECT * FROM producao_municipal WHERE uf = ?", (uf,))
 prod = prod[prod["municipio"].isin(muns)].groupby("ano", as_index=False)["producao_t"].sum()
 fig2 = px.bar(prod, x="ano", y="producao_t", labels={"ano": "Ano", "producao_t": "Produção (t)"},
-              title="Produção de soja dos municípios selecionados")
+              title="Produção de soja")
 g2.plotly_chart(fig2, width="stretch")
 
 # ---------- tabela ----------
@@ -77,7 +77,7 @@ st.download_button("Baixar tabela (CSV)", tab.to_csv(index=False).encode("utf-8"
 
 # ---------- grade de horários ----------
 st.subheader("Grade de horários de uma unidade")
-st.caption("Horas de recebimento e duração da janela não têm fonte pública: confirmar na visita.")
+st.caption("Horas de recebimento e duração da janela não têm fonte pública. Confirmar na visita.")
 un = db.ler(con, "SELECT * FROM unidade WHERE uf = ? ORDER BY municipio", (uf,))
 un["rotulo"] = un["id_unidade"] + ", " + un["municipio"] + " (" + un["tipo"] + ")"
 a, b, c, e = st.columns(4)

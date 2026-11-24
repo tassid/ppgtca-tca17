@@ -25,12 +25,12 @@ if totem:
         " html{font-size:20px}</style>",
         unsafe_allow_html=True,
     )
-    paginas = [st.Page("telas/agendamento.py", title="Agendamento", icon="📝")]
+    paginas = [st.Page("telas/agendamento.py", title="Agendamento")]
 else:
     paginas = [
-        st.Page("telas/planejamento.py", title="Planejamento", icon="📊", default=True),
-        st.Page("telas/agendamento.py", title="Agendamento", icon="📝"),
-        st.Page("telas/monitoramento.py", title="Monitoramento", icon="🚦"),
+        st.Page("telas/planejamento.py", title="Planejamento", default=True),
+        st.Page("telas/agendamento.py", title="Agendamento"),
+        st.Page("telas/monitoramento.py", title="Monitoramento"),
     ]
 
 st.navigation(paginas, position="hidden" if totem else "sidebar").run()
