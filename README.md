@@ -22,3 +22,5 @@ streamlit run app.py
 ```
 
 No Streamlit Community Cloud, usar `dashboard/app.py` como arquivo principal.
+
+Versão no navegador, sem servidor: https://tassid.github.io/ppgtca-tca17/ (publicada pelo GitHub Actions; detalhes em `dashboard/README.md`).

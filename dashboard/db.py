@@ -4,15 +4,20 @@ Tabelas públicas (unidade, producao_municipal, colheita, carga) são recarregad
 dos CSVs em data/. Tabelas de uso (janela, agendamento, evento_portaria) só
 recebem o que for registrado nas telas.
 """
+import math
+import os
 import sqlite3
-from datetime import datetime
+import sys
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 
 import pandas as pd
 
 BASE = Path(__file__).parent
 DATA = BASE / "data"
-DB = DATA / "recebimento.db"
+DB = Path(os.environ.get("DB_PATH", DATA / "recebimento.db"))
+# versão que roda no navegador (stlite, GitHub Pages)
+NO_NAVEGADOR = sys.platform == "emscripten"
 
 PRODUTOS = ["Soja", "Milho", "Trigo", "Outro"]
 STATUS = ["agendado", "chegou", "em descarga", "concluído", "não compareceu"]
@@ -30,7 +35,7 @@ def conectar():
 
 def iniciar():
     """Cria as tabelas de uso e recarrega as públicas a partir dos CSVs."""
-    DATA.mkdir(exist_ok=True)
+    DB.parent.mkdir(parents=True, exist_ok=True)
     con = conectar()
     con.executescript(
         """
@@ -218,3 +223,24 @@ def codigo(id_agendamento):
 def id_do_codigo(cod):
     cod = cod.strip().upper().lstrip("A")
     return int(cod) if cod.isdigit() else None
+
+
+def semear_grade_exemplo(con, dias=7, inicio=time(7, 0), fim=time(19, 0), minutos=60):
+    """Versão no navegador: cria uma grade de exemplo quando o banco não tem janelas.
+
+    O horário de 07:00 às 19:00 é só para a demonstração (não tem fonte). As vagas
+    por janela saem da demanda no pico com bitrem e participação de 100%.
+    """
+    if con.execute("SELECT COUNT(*) FROM janela").fetchone()[0]:
+        return 0
+    carga = float(ler(con, "SELECT carga_t FROM carga WHERE configuracao LIKE 'Bitrem%'")["carga_t"].iloc[0])
+    dem = demanda(con, 2024, 100, carga).set_index(["uf", "municipio"])
+    un = ler(con, "SELECT * FROM unidade")
+    n_por_mun = un.groupby(["uf", "municipio"]).size()
+    n_jan = (fim.hour * 60 + fim.minute - inicio.hour * 60 - inicio.minute) // minutos
+    datas = [date.today() + timedelta(days=i) for i in range(dias)]
+    total = 0
+    for u in un.itertuples():
+        cam = dem.loc[(u.uf, u.municipio), "caminhoes_dia_pico"] / n_por_mun[(u.uf, u.municipio)]
+        total += criar_janelas(con, u.id_unidade, datas, inicio, fim, minutos, max(1, math.ceil(cam / n_jan)))
+    return total

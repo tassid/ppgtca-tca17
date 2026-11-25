@@ -99,6 +99,9 @@ with st.container(border=True, key="card_pl4"):
 with st.container(border=True, key="card_pl5"):
     st.subheader("Grade de horários de uma unidade")
     st.caption("Horas de recebimento e duração da janela não têm fonte pública. Confirmar na visita.")
+    if db.NO_NAVEGADOR:
+        st.info("Nesta versão no navegador, cada unidade já começa com uma grade de exemplo, "
+                "das 07:00 às 19:00 nos próximos 7 dias. Os dados ficam só neste navegador.")
     un = db.ler(con, "SELECT * FROM unidade WHERE uf = ? ORDER BY municipio", (uf,))
     un["rotulo"] = un["id_unidade"] + ", " + un["municipio"] + " (" + un["tipo"] + ")"
     a, b, c, e = st.columns(4)

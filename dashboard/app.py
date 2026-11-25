@@ -13,7 +13,10 @@ st.set_page_config(page_title="Descargas de grãos", page_icon="assets/icone.svg
 
 @st.cache_resource
 def conexao():
-    return db.iniciar()
+    con = db.iniciar()
+    if db.NO_NAVEGADOR:
+        db.semear_grade_exemplo(con)
+    return con
 
 
 st.session_state["con"] = conexao()
