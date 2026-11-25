@@ -7,10 +7,17 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1400, height: 1000 } });
 const erros = [];
 page.on("pageerror", (e) => erros.push(e.message));
+page.on("console", (m) => { if (["error", "warning"].includes(m.type())) console.log(`[console ${m.type()}] ${m.text().slice(0, 400)}`); });
 
 async function confere(url, texto, arquivo) {
   await page.goto(url);
-  await page.getByText(texto).first().waitFor({ timeout: 240_000 });
+  try {
+    await page.getByText(texto).first().waitFor({ timeout: 240_000 });
+  } catch (e) {
+    await page.screenshot({ path: `capturas/falha_${arquivo}`, fullPage: true });
+    console.log("Texto da página na falha:\n" + (await page.locator("body").innerText()).slice(0, 3000));
+    throw e;
+  }
   await page.waitForTimeout(3000);
   await page.screenshot({ path: `capturas/${arquivo}`, fullPage: true });
   const exc = await page.locator('[data-testid="stException"]').count();
