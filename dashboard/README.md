@@ -12,6 +12,17 @@ streamlit run app.py
 
 Abre em http://localhost:8501. O banco SQLite (`data/recebimento.db`) é criado na primeira execução.
 
+## Versão no navegador (GitHub Pages)
+
+O workflow `.github/workflows/pages.yml` monta uma versão estática com o stlite (Streamlit rodando no navegador via Pyodide) e publica em `https://tassid.github.io/ppgtca-tca17/` a cada push na `main`. Em pull requests ele só monta o site e testa no navegador, sem publicar; as capturas de tela ficam nos artefatos da execução.
+
+1. Não precisa de servidor nem de conta no Streamlit Cloud.
+2. O banco fica no navegador de quem abriu (IndexedDB) e sobrevive a recarregar a página. Abas no mesmo navegador compartilham o banco, então o totem numa aba e o monitoramento em outra funcionam juntos. Aparelhos diferentes não compartilham dados.
+3. Cada unidade começa com uma grade de exemplo (07:00 às 19:00, próximos 7 dias), com vagas calculadas pela demanda no pico.
+4. A primeira abertura demora de 10 a 30 segundos enquanto o navegador baixa o Python.
+
+Para montar localmente: `python dashboard/web/build_site.py _site` e servir a pasta `_site` com qualquer servidor estático.
+
 ## Totem
 
 Abrir `http://localhost:8501/?modo=totem&unidade=U20` em tela cheia (Chrome com `--kiosk`), trocando `U20` pela unidade onde o totem fica.
