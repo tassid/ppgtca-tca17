@@ -27,7 +27,9 @@ for p in arquivos:
 files = {str(p.relative_to(APP)): {"url": f"./app/{p.relative_to(APP).as_posix()}"} for p in arquivos}
 opcoes = {
     "entrypoint": "app.py",
-    "requirements": ["pandas", "plotly", "sqlite3"],
+    "requirements": ["plotly"],
+    # pacotes que já vêm compilados no Pyodide (não estão no PyPI como wheel pura)
+    "prebuiltPackageNames": ["pandas", "sqlite3"],
     "files": files,
     # o banco fica no IndexedDB do navegador: sobrevive a recarregar a página
     "idbfsMountpoints": ["/mnt"],
