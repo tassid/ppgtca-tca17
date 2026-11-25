@@ -28,8 +28,9 @@ files = {str(p.relative_to(APP)): {"url": f"./app/{p.relative_to(APP).as_posix()
 opcoes = {
     "entrypoint": "app.py",
     "requirements": ["plotly"],
-    # pacotes que já vêm compilados no Pyodide (não estão no PyPI como wheel pura)
-    "prebuiltPackageNames": ["pandas", "sqlite3"],
+    # pacote que já vem compilado no Pyodide (não está no PyPI como wheel pura).
+    # O sqlite3 não entra aqui: desde o Pyodide 314 ele faz parte da biblioteca padrão.
+    "prebuiltPackageNames": ["pandas"],
     "files": files,
     # o banco fica no IndexedDB do navegador: sobrevive a recarregar a página
     "idbfsMountpoints": ["/mnt"],
